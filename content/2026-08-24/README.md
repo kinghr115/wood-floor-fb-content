@@ -2,16 +2,22 @@
 
 - 風格：幽默風（ISO 週數 35，35 mod 4 = 3）
 - `caption.txt`：本週 Facebook 貼文文案
+- `image.png`：本週搭配圖片
 
-## 圖片產出狀態：失敗（環境網路政策阻擋）
+## 圖片來源
 
-依照排程任務指示，本應呼叫 Pollinations.ai 的公開圖片產生端點
-（`https://image.pollinations.ai/prompt/...`）下載一張搭配圖片存為
-`image.jpg`，但這次執行環境的出站網路政策（egress policy）回傳
-`403 Forbidden`，擋下了對 `image.pollinations.ai` 的連線，不是暫時性網路問題。
+改用 repo 內本地素材，不再呼叫外部圖片生成 API。
 
-已依規範不重試繞過政策封鎖，因此本次沒有產出 `image.jpg`。
+- 圖庫：`assets/`（目前僅 1 張：`spcflooringfbpost.png`）
+- 選圖規則：週數 mod 圖庫圖片數量 → 35 mod 1 = 0 → 選中 `spcflooringfbpost.png`
+- 已複製為本資料夾的 `image.png`
 
-建議：
-1. 請管理者將 `image.pollinations.ai` 加入允許清單，或
-2. 提供其他允許存取的圖片產生服務／已上傳的素材圖，之後可重跑本任務補上圖片。
+備註：本次執行順便整理了 repo 結構——先前根目錄下有一個誤建的空白 `assets`
+檔案（非資料夾）與一張放錯位置的 `spcflooringfbpost.png`（原本在 repo 根目
+錄），這次已改為建立正確的 `assets/` 資料夾並將圖片移入其中，之後排程可持續
+從 `assets/` 挑圖使用。
+
+## 先前狀態（已解決）
+
+上一次執行時因環境出站網路白名單阻擋，無法呼叫 Pollinations.ai 產生圖片
+（403 Forbidden），因此當時沒有產出圖片。這次已改用本地素材，問題已解決。
